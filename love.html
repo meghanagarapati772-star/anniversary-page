@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Love Anniversary 💖</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Adobe Caslon Pro Bold', 'Times New Roman', serif;
+      overflow: hidden;
+      background: url('background.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    h1, h2 { 
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    }
+
+    .container {
+      display: none;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      backdrop-filter: blur(3px);
+      z-index: 2;
+      position: relative;
+    }
+
+    button {
+      padding: 15px 35px;
+      border: none;
+      border-radius: 30px;
+      background: pink;
+      color: black;
+      font-size: 28px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 10px;
+    }
+    button:hover { background: hotpink; color: white; }
+    #welcome h1 {
+      font-size: 60px; 
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    }
+    #welcome h2 {
+      font-size: 40px;
+      /*font-weight: bold; */
+      margin-top: 10px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    }
+    /* Memories Grid */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      width: 95vw;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+    }
+    .project-card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s;
+    }
+    .project-card:hover { transform: scale(1.05); }
+    .project-image img { width: 100%; height: 65vh; object-fit: cover; border-radius: 12px; display: block; }
+
+    /* Random grid 
+    .random-grid { display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(2, auto); gap: 8px; max-width: 85%; margin: 20px auto; justify-content: center; }
+    .random-grid img { width: 150px; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4); transition: transform 0.3s; }
+    .random-grid img:hover { transform: scale(1.1); } */
+
+    #letterText { font-size: 24px; max-width: 1000px; background: rgba(255,255,255,0.5); padding:20px; border-radius:12px; line-height:1.6; color:black; }
+
+    .final-img { max-width: 40%; height:auto; border-radius:20px; box-shadow:0 8px 30px rgba(255,192,203,0.7),0 0 50px rgba(255,105,180,0.6); animation: zoomIn 2s ease-in-out, heartbeat 3s infinite; border:6px solid white; }
+
+    @keyframes heartbeat { 0%,100%{transform:scale(1);}25%{transform:scale(1.05);}50%{transform:scale(0.98);}75%{transform:scale(1.05);} }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: float 6s linear infinite;
+      z-index:1;
+    }
+    .heart::before, .heart::after {
+      content:"";
+      position:absolute;
+      width:20px;
+      height:20px;
+      background:red;
+      border-radius:50%;
+    }
+    .heart::before { top:-10px; left:0;}
+    .heart::after { top:0; left:10px;}
+    @keyframes float { 0% { transform:translateY(0) rotate(-45deg); opacity:1; } 100% { transform:translateY(-800px) rotate(-45deg); opacity:0; } }
+
+    /* Fireworks canvas */
+    canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+  
+    /* Random grid */
+    .random-grid { 
+      display: grid; 
+      grid-template-columns: repeat(10, 1fr); 
+      grid-template-rows: repeat(2, auto); 
+      gap: 8px; 
+      max-width: 85%; 
+      margin: 20px auto; 
+      justify-content: center; 
+    }
+
+    .random-grid img { 
+      width: 150px; 
+      height: 250px; 
+      object-fit: cover; 
+      border-radius: 12px; 
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4); 
+      transition: transform 0.3s; 
+      opacity: 0; 
+      animation: fadeIn 0.6s forwards; 
+    }
+
+    .random-grid img:hover { transform: scale(1.1); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Welcome -->
+  <div class="container" id="welcome" style="display:flex; flex-direction:column;">
+    <h1>Happy Anniversary My Love💌🫂</h1>
+    <!--<h2>💌 Welcome To Our Love Journey</h2> -->
+    <h2> MeghaRam 💕</h2>
+    <button onclick="startMemories()">Continue 💖</button>
+  </div>
+
+  <!-- Memories -->
+  <div class="container" id="memories">
+    <h2>Our Captured Memories 💕</h2>
+    <div class="memory-grid" id="memoryGrid"></div>
+    <div>
+      <button onclick="prevMemorySet()">⬅️ Previous</button>
+      <button onclick="nextMemorySet()">Next ➡️</button>
+    </div>
+  </div>
+
+  <!-- Random Cute Stuff -->
+  <div class="container" id="randomStuff">
+    <h1>Random Stuff in My Gallary🐾</h1>
+    <h2>"These photos never bore me, no matter how many times I see them..." 🥰</h2>
+    <div class="random-grid" id="randomGrid"></div>
+    <button onclick="goToLetter()">Next ➡️</button>
+  </div>
+
+  <!-- Letter -->
+  <div class="container" id="letter">
+    <h2>To The Man, I Want To Spend My Whole Life With💌</h2>
+    <p id="letterText"></p>
+    <button id="nextAfterLetter" style="display:none;" onclick="goToProposal()">Next ➡️</button>
+  </div>
+
+  <!-- Proposal -->
+  <div class="container" id="proposal">
+    <h1>Will You Be Mine Forever? 💍</h1>
+    <button onclick="showCelebration()">Yes 💖</button>
+  </div>
+
+  <!-- Final -->
+  <div class="container" id="final">
+    <h1>Forever With You 💞</h1>
+    <img src="best.jpg" alt="Best Memory" class="final-img">
+  </div>
+
+  <!-- Fireworks canvas -->
+  <canvas id="fireworks"></canvas>
+
+  <!-- Background music -->
+  <audio id="bg-music" loop>
+  <source src="romantic-song.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <script>
+    // ---------------- Floating Hearts ----------------
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random()*window.innerWidth+"px";
+      heart.style.animationDuration = 3+Math.random()*3+"s";
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+      setTimeout(()=> heart.remove(),6000);
+    }
+    setInterval(createHeart, 300);
+
+    // ---------------- Memories ----------------
+    let memoryIndex = 0;
+    let i = 0;
+
+    let memories = [
+      {img:"memory1.jpg", text:"Our first picture together 💞"},
+      {img:"memory2.jpg", text:"The romantic movie date..🌙"},
+      {img:"memory3.jpg", text:"The engagement day 💍"},
+      {img:"memory4.jpg", text:"That Temple Date💌"},
+      {img:"memory5.jpg", text:"One of my favorite smiles💖"},
+      {img:"memory6.jpg", text:"A crazy adventure we had together🌍"},
+      {img:"memory7.jpg", text:"Overcoming the Long Distance🤝"},
+      {img:"memory8.jpg", text:"Memories made with AI 😚"},
+      {img:"memory9.jpg", text:"My happiest place 💖"},
+      {img:"memory10.jpg", text:"My love 💖"}
+    ];
+
+    let randomImages = [];
+    for(let j=1;j<=20;j++) randomImages.push(`assets/random${j}.jpg`);
+
+let letterText = `From the moment we met, my life has been filled with happiness. Every memory with you is a treasure, and I can wait to create more with you. I still remember the very first time we met, how I fell in love with you and your smile and how everything happened unexpectedly. We both didn't expect it, it was God who made it happen, because He knows we both need each other to complete the love story He made. I am beyond blessed and thankful that someone like you came into my life. Thank you... Thank you for making me realize and making me feel that I deserve to be loved, to be happy, and to have someone as amazing as you are.
+
+Thank you for loving me and everything about me, thank you for accepting me, all my flaws and mistakes that I made in the past. Don't forget that I accept you as well just the way you are. I pray to God to guide us always because you are the one I want to spend my whole life with. I'm so lucky enough to have an ideal man that every girl dreams of.
+
+Thank you for coming into my life, for loving me unconditionally, and for always holding my hands so tight that I know you will never ever let me go. I just want you to know that I love you with every ounce of my being.
+
+Lastly, rest assured that you have me, my heart, and my soul, forever.  
+Happy Anniversary, my love. 💖`;
+
+    // ---------------- Functions ----------------
+    function startMemories(){ 
+      document.getElementById("welcome").style.display="none"; 
+      document.getElementById("memories").style.display="flex"; 
+      renderMemories(); 
+      const music = document.getElementById("bg-music");
+      music.play().catch(err => console.log("Autoplay blocked:", err));
+    }
+
+    function renderMemories(){ 
+      let grid = document.getElementById("memoryGrid"); 
+      grid.innerHTML=""; 
+      for(let i=memoryIndex;i<memoryIndex+5 && i<memories.length;i++){
+        grid.innerHTML+=`<div class="project-card"><div class="project-image"><img src="${memories[i].img}" alt="Memory ${i+1}"></div><p>${memories[i].text}</p></div>`;
+      }
+    }
+
+    function nextMemorySet(){ 
+      memoryIndex+=5; 
+      if(memoryIndex>=memories.length){ 
+        document.getElementById("memories").style.display="none"; 
+        document.getElementById("randomStuff").style.display="flex"; 
+        renderRandomStuff(); 
+      } else renderMemories(); 
+    }
+
+    function prevMemorySet(){ 
+      memoryIndex-=5; 
+      if(memoryIndex<0) memoryIndex=0; 
+      renderMemories(); 
+    }
+
+    // ---------------- Random Images One by One ----------------
+    function renderRandomStuff(){
+      let grid = document.getElementById("randomGrid");
+      grid.innerHTML = "";
+      let index = 0;
+
+      function addImage(){
+        if(index < randomImages.length){
+          let img = document.createElement("img");
+          img.src = randomImages[index];
+          img.alt = "Cute";
+          grid.appendChild(img);
+          index++;
+          setTimeout(addImage, 400); // adjust delay (ms) between images
+        }
+      }
+      addImage();
+    }
+
+    function goToLetter(){ 
+      document.getElementById("randomStuff").style.display="none"; 
+      document.getElementById("letter").style.display="flex"; 
+      startLetter(); 
+    }
+
+    function startLetter(){ 
+      i=0; 
+      document.getElementById("letterText").innerHTML=""; 
+      typeLetter(); 
+    }
+
+    function typeLetter(){ 
+      if(i<letterText.length){ 
+        document.getElementById("letterText").innerHTML+=letterText.charAt(i); 
+        i++; 
+        setTimeout(typeLetter,50); 
+      } else { 
+        document.getElementById("nextAfterLetter").style.display="inline-block"; 
+      } 
+    }
+
+    function goToProposal(){ 
+      document.getElementById("letter").style.display="none"; 
+      document.getElementById("proposal").style.display="flex"; 
+    }
+
+    function showCelebration(){ 
+      document.getElementById("proposal").style.display="none"; 
+      document.getElementById("final").style.display="flex"; 
+      startFireworks(); 
+    }
+
+    // ---------------- Fireworks ----------------
+    function startFireworks(){
+      const canvas = document.getElementById('fireworks');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth; 
+      canvas.height = window.innerHeight;
+      let particles=[];
+
+      class Particle{
+        constructor(x,y,color,velocity){ this.x=x; this.y=y; this.color=color; this.velocity=velocity; this.alpha=1; this.life=100; }
+        draw(){ ctx.save(); ctx.globalAlpha=this.alpha; ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,3,0,Math.PI*2,false); ctx.fill(); ctx.restore(); }
+        update(){ this.x+=this.velocity.x; this.y+=this.velocity.y; this.alpha-=0.01; this.life--; this.draw(); }
+      }
+
+      function createFirework(x,y){
+        const colors=['#ff4d6d','#ffb84d','#66ff66','#66ccff','#ff66ff'];
+        for(let i=0;i<30;i++){
+          const angle=Math.random()*Math.PI*2;
+          const speed=Math.random()*5+2;
+          particles.push(new Particle(x,y,colors[Math.floor(Math.random()*colors.length)],{x:Math.cos(angle)*speed, y:Math.sin(angle)*speed}));
+        }
+      }
+
+      function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(let j=particles.length-1;j>=0;j--){
+          let p=particles[j];
+          if(p.life<=0){ particles.splice(j,1); } else{ p.update(); }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      setInterval(()=>{ createFirework(Math.random()*canvas.width, Math.random()*canvas.height); },1200);
+      animate();
+
+      window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+    }
+  </script>
+</body>
+</html>
